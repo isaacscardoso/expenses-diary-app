@@ -24,6 +24,9 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue[200],
+      appBar: AppBar(
+        title: const Text('Despesas Diárias'),
+      ),
     );
   }
 }
