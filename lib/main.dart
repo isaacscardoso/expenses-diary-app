@@ -24,14 +24,14 @@ class MyHomePage extends StatelessWidget {
   final _transactions = [
     Transaction(
       id: '1',
-      title: 'Bota Coturno',
-      value: 160.00,
+      title: 'Cinema',
+      value: 59.90,
       date: DateTime.now(),
     ),
     Transaction(
       id: '2',
-      title: 'iPhone 13 Pro Max',
-      value: 9500.00,
+      title: 'Lanchonete',
+      value: 35.79,
       date: DateTime.now(),
     ),
   ];
@@ -65,24 +65,43 @@ class MyHomePage extends StatelessWidget {
                       ),
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: Colors.blueAccent,
+                          color: Colors.purple,
                           width: 2,
                         ),
                       ),
                       padding: const EdgeInsets.all(10),
-                      child: Text(item.value.toString()),
+                      child: Text(
+                        'R\$ ${item.value.toStringAsFixed(2)}',
+                        style: const TextStyle(
+                          color: Colors.purple,
+                        ),
+                      ),
                     ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(item.date.toString()),
-                        Text(item.title),
+                        Text(
+                          item.date.toString(),
+                          style: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 12,
+                          ),
+                        ),
+                        Text(
+                          item.title,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ],
                     ),
                   ],
                 ),
               );
             }).toList(),
-          )
+          ),
         ],
       ),
     );
