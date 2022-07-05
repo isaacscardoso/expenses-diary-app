@@ -13,7 +13,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Expenses Diary',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
+            .copyWith(secondary: Colors.amber),
+      ),
       home: const MyHomePage(),
     );
   }
@@ -105,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue.shade100,
+      backgroundColor: Colors.purple.shade50,
       appBar: AppBar(
         title: const Text('Despesas Diárias'),
         actions: <Widget>[

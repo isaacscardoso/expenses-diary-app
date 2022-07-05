@@ -10,9 +10,8 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size.height);
     return SizedBox(
-      height: MediaQuery.of(context).size.height - 120,
+      height: MediaQuery.of(context).size.height - 165,
       child: ListView.builder(
         itemCount: transactions.length,
         itemBuilder: (BuildContext context, int index) {
@@ -27,7 +26,7 @@ class TransactionList extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.blue.shade800,
+                      color: Theme.of(context).colorScheme.primary,
                       width: 2,
                     ),
                   ),
@@ -35,29 +34,32 @@ class TransactionList extends StatelessWidget {
                   child: Text(
                     'R\$ ${item.value.toStringAsFixed(2)}',
                     style: TextStyle(
-                      color: Colors.blue.shade600,
+                      color: Theme.of(context).colorScheme.primary,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      DateFormat('d MMM y - HH:mm').format(item.date),
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 12,
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        DateFormat('d MMM y - HH:mm').format(item.date),
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 12,
+                        ),
                       ),
-                    ),
-                    Text(
-                      item.title,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                      Text(
+                        item.title,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
