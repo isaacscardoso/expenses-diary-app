@@ -1,6 +1,6 @@
-# expenses_diary
+# Expenses Diary
 
-Application for daily expense notes.
+Visualization and control of daily expenses.
 
 ## Getting Started
 
