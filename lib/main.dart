@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:expenses_diary/models/transaction.dart';
 import 'package:expenses_diary/components/transaction_form.dart';
 import 'package:expenses_diary/components/transaction_list.dart';
+import 'package:expenses_diary/components/chart.dart';
 
 void main() => runApp(const MyApp());
 
@@ -49,51 +50,29 @@ class _MyHomePageState extends State<MyHomePage> {
       id: '1',
       title: 'Cinema',
       value: 59.90,
-      date: DateTime(2022, 1, 24, 20, 00),
+      date: DateTime.now().subtract(const Duration(days: 33)),
     ),
     Transaction(
       id: '2',
       title: 'Lanchonete',
       value: 35.79,
-      date: DateTime(2022, 3, 09, 12, 30),
+      date: DateTime.now().subtract(const Duration(days: 2)),
     ),
     Transaction(
       id: '3',
       title: 'Academia',
       value: 65.00,
-      date: DateTime(2022, 1, 24, 20, 00),
-    ),
-    Transaction(
-      id: '4',
-      title: 'Padaria',
-      value: 29.90,
-      date: DateTime(2022, 3, 09, 12, 30),
-    ),
-    Transaction(
-      id: '5',
-      title: 'Disney+',
-      value: 45.90,
-      date: DateTime(2022, 1, 24, 20, 00),
-    ),
-    Transaction(
-      id: '6',
-      title: 'Steam',
-      value: 75.90,
-      date: DateTime(2022, 3, 09, 12, 30),
-    ),
-    Transaction(
-      id: '7',
-      title: 'Steam',
-      value: 75.90,
-      date: DateTime(2022, 3, 09, 12, 30),
-    ),
-    Transaction(
-      id: '8',
-      title: 'Steam',
-      value: 75.90,
-      date: DateTime(2022, 3, 09, 12, 30),
+      date: DateTime.now().subtract(const Duration(days: 4)),
     ),
   ];
+
+  List<Transaction> get _recentTransactions {
+    return _transactions.where((rt) {
+      return rt.date.isAfter(DateTime.now().subtract(
+        const Duration(days: 7),
+      ));
+    }).toList();
+  }
 
   void _addTransaction(String title, double value) {
     final transaction = Transaction(
@@ -125,6 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Colors.purple.shade50,
       appBar: AppBar(
         title: const Text('Despesas Diárias'),
+        centerTitle: true,
         actions: <Widget>[
           IconButton(
             onPressed: () => _openTransactionFormModal(context),
@@ -136,9 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            const Card(
-              child: Text('Gráfico', textAlign: TextAlign.center),
-            ),
+            Chart(recentTransactions: _recentTransactions),
             TransactionList(transactions: _transactions),
           ],
         ),
