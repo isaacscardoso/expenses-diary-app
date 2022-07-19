@@ -55,22 +55,14 @@ class _MyHomePageState extends State<MyHomePage> {
     Transaction(
       id: '2',
       title: 'Lanchonete',
-      value: 35.79,
+      value: 37.79,
       date: DateTime.now().subtract(const Duration(days: 2)),
-    ),
-    Transaction(
-      id: '3',
-      title: 'Academia',
-      value: 65.00,
-      date: DateTime.now().subtract(const Duration(days: 4)),
     ),
   ];
 
   List<Transaction> get _recentTransactions {
     return _transactions.where((rt) {
-      return rt.date.isAfter(DateTime.now().subtract(
-        const Duration(days: 7),
-      ));
+      return rt.date.isAfter(DateTime.now().subtract(const Duration(days: 7)));
     }).toList();
   }
 

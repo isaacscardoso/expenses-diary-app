@@ -1,3 +1,4 @@
+import 'package:expenses_diary/components/chart_bar.dart';
 import 'package:expenses_diary/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -34,11 +35,20 @@ class Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 6,
-      margin: const EdgeInsets.all(20),
+      margin: const EdgeInsets.symmetric(
+        vertical: 16,
+        horizontal: 10,
+      ),
       child: Row(
-          children: groupedTransactions.map((gt) {
-        return Text('${gt['day']}: ${gt['value']}');
-      }).toList()),
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: groupedTransactions.map((gt) {
+          return ChartBar(
+            label: gt['day'],
+            value: gt['value'],
+            percentage: 0,
+          );
+        }).toList(),
+      ),
     );
   }
 }
