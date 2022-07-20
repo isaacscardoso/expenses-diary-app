@@ -39,12 +39,20 @@ class TransactionList extends StatelessWidget {
                   final item = transactions[index];
                   return Card(
                     child: ListTile(
-                      leading: Column(
-                        mainAxisSize: MainAxisSize.min,
+                      leading: const CircleAvatar(
+                        backgroundColor: Color.fromRGBO(244, 244, 244, 1),
+                        radius: 22,
+                        child: Icon(
+                          Icons.paid_outlined,
+                          color: Colors.black,
+                        ),
+                      ),
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          const Icon(Icons.payments_outlined),
-                          const SizedBox(
-                            height: 4,
+                          Text(
+                            item.title,
+                            style: Theme.of(context).textTheme.headline6,
                           ),
                           Text(
                             'R\$ ${item.value.toStringAsFixed(2)}',
@@ -55,16 +63,12 @@ class TransactionList extends StatelessWidget {
                           ),
                         ],
                       ),
-                      title: Text(
+                      subtitle: Text(
                         DateFormat('d MMM y - HH:mm').format(item.date),
                         style: const TextStyle(
                           color: Colors.grey,
-                          fontSize: 12,
+                          fontSize: 13,
                         ),
-                      ),
-                      subtitle: Text(
-                        item.title,
-                        style: Theme.of(context).textTheme.headline6,
                       ),
                     ),
                   );

@@ -17,10 +17,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
             .copyWith(secondary: Colors.amber),
-        fontFamily: 'OpenSans',
+        fontFamily: 'NotoSans',
         textTheme: ThemeData.light().textTheme.copyWith(
               headline6: const TextStyle(
-                fontSize: 16,
+                fontSize: 15,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -100,7 +100,10 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: <Widget>[
           IconButton(
             onPressed: () => _openTransactionFormModal(context),
-            icon: const Icon(Icons.add),
+            icon: const Icon(
+              Icons.add_circle_outline,
+              size: 26,
+            ),
           ),
         ],
       ),
