@@ -104,14 +104,17 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Chart(recentTransactions: _recentTransactions),
-            TransactionList(transactions: _transactions),
-          ],
-        ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Chart(recentTransactions: _recentTransactions),
+            ],
+          ),
+          TransactionList(transactions: _transactions),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _openTransactionFormModal(context),
