@@ -1,3 +1,4 @@
+import 'package:expenses_diary/formatters/currency_brl_formatter.dart';
 import 'package:flutter/material.dart';
 
 class ChartBar extends StatelessWidget {
@@ -18,7 +19,7 @@ class ChartBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         FittedBox(
-          child: Text(value.toStringAsFixed(2)),
+          child: Text(CurrencyBrlFormatter.format(value: value, symbol: '')),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),

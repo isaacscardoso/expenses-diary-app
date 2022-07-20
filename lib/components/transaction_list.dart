@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:expenses_diary/models/transaction.dart';
+import 'package:expenses_diary/formatters/currency_brl_formatter.dart';
 
 class TransactionList extends StatelessWidget {
   const TransactionList({Key? key, required this.transactions})
@@ -11,70 +12,68 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size.height;
-    return SingleChildScrollView(
-      child: SizedBox(
-        height: screenSize - (screenSize * (49.0 / 100)),
-        child: transactions.isEmpty
-            ? Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 12, bottom: 20),
-                    child: Text(
-                      'Nenhuma Transação cadastrada!',
-                      style: Theme.of(context).textTheme.headline6,
+    return SizedBox(
+      height: screenSize - (screenSize * (49.0 / 100)),
+      child: transactions.isEmpty
+          ? Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 12, bottom: 20),
+                  child: Text(
+                    'Nenhuma Transação cadastrada!',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                ),
+                SizedBox(
+                  height: screenSize - (screenSize * (66.7 / 100)),
+                  child: Image.asset(
+                    'assets/images/waiting.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ],
+            )
+          : ListView.builder(
+              itemCount: transactions.length,
+              itemBuilder: (BuildContext context, int index) {
+                final item = transactions[index];
+                return Card(
+                  child: ListTile(
+                    leading: const CircleAvatar(
+                      backgroundColor: Color.fromRGBO(244, 244, 244, 1),
+                      radius: 22,
+                      child: Icon(
+                        Icons.paid_outlined,
+                        color: Colors.black,
+                      ),
+                    ),
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          item.title,
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                        Text(
+                          CurrencyBrlFormatter.format(value: item.value),
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                    subtitle: Text(
+                      DateFormat('d MMM y - HH:mm').format(item.date),
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 13,
+                      ),
                     ),
                   ),
-                  SizedBox(
-                    height: screenSize - (screenSize * (66.7 / 100)),
-                    child: Image.asset(
-                      'assets/images/waiting.png',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ],
-              )
-            : ListView.builder(
-                itemCount: transactions.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final item = transactions[index];
-                  return Card(
-                    child: ListTile(
-                      leading: const CircleAvatar(
-                        backgroundColor: Color.fromRGBO(244, 244, 244, 1),
-                        radius: 22,
-                        child: Icon(
-                          Icons.paid_outlined,
-                          color: Colors.black,
-                        ),
-                      ),
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            item.title,
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                          Text(
-                            'R\$ ${item.value.toStringAsFixed(2)}',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
-                      subtitle: Text(
-                        DateFormat('d MMM y - HH:mm').format(item.date),
-                        style: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-      ),
+                );
+              },
+            ),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:expenses_diary/formatters/currency_brl_formatter.dart';
 
 class TransactionForm extends StatefulWidget {
   const TransactionForm({Key? key, required this.onSubmitForm})
@@ -17,7 +18,12 @@ class _TransactionFormState extends State<TransactionForm> {
 
   void _onSubmitForm() {
     String title = titleController.text;
-    double value = double.tryParse(valueController.text) ?? 0.0;
+    String reformatValue = valueController.text
+        .replaceAll('R\$', '')
+        .replaceAll('.', '')
+        .replaceAll(',', '.');
+
+    double value = double.tryParse(reformatValue) ?? 0.0;
 
     if (title.isNotEmpty && value > 0) {
       widget.onSubmitForm(title, value);
@@ -40,9 +46,12 @@ class _TransactionFormState extends State<TransactionForm> {
             TextField(
               controller: valueController,
               keyboardType: TextInputType.number,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                CurrencyBrlFormatter(),
+              ],
               decoration: const InputDecoration(
-                labelText: 'Valor (R\$)',
+                labelText: 'Valor',
               ),
             ),
             Row(
