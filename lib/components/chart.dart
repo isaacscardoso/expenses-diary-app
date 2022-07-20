@@ -31,23 +31,31 @@ class Chart extends StatelessWidget {
     });
   }
 
+  double get _weekTotalValue {
+    return groupedTransactions.fold(0.0, (previousValue, element) {
+      return previousValue + element['value'];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 6,
-      margin: const EdgeInsets.symmetric(
-        vertical: 16,
-        horizontal: 10,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: groupedTransactions.map((gt) {
-          return ChartBar(
-            label: gt['day'],
-            value: gt['value'],
-            percentage: 0.4,
-          );
-        }).toList(),
+      margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: groupedTransactions.map((gt) {
+            return Expanded(
+              child: ChartBar(
+                label: gt['day'],
+                value: gt['value'],
+                percentage: gt['value'] / _weekTotalValue,
+              ),
+            );
+          }).toList(),
+        ),
       ),
     );
   }
