@@ -47,12 +47,13 @@ class Chart extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: Column(
           children: [
-            const Text(
-              'SEMANA ATUAL',
+            Text(
+              'semana atual - ${DateFormat.MMMEd('pt_BR').format(DateTime.now())}',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
                 letterSpacing: 3,
+                color: Colors.grey.shade700,
               ),
             ),
             const SizedBox(

@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -89,14 +90,17 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Colors.purple.shade50,
       appBar: AppBar(
-        title: const Text('Despesas Diárias'),
+        title: const Text(
+          'Despesas Diárias',
+          style: TextStyle(fontSize: 22),
+        ),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
             onPressed: () => _openTransactionFormModal(context),
             icon: const Icon(
               Icons.add_circle_outline,
-              size: 26,
+              size: 34,
             ),
           ),
         ],
