@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:expenses_diary/formatters/currency_brl_mask.dart';
+import 'package:intl/intl.dart';
 
 class TransactionForm extends StatefulWidget {
   const TransactionForm({Key? key, required this.onSubmitForm})
@@ -13,12 +14,13 @@ class TransactionForm extends StatefulWidget {
 }
 
 class _TransactionFormState extends State<TransactionForm> {
-  TextEditingController titleController = TextEditingController();
-  TextEditingController valueController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _valueController = TextEditingController();
+  DateTime? _selectedDate;
 
   void _onSubmitForm() {
-    String title = titleController.text;
-    String reformatValue = valueController.text
+    String title = _titleController.text;
+    String reformatValue = _valueController.text
         .replaceAll('R\$', '')
         .replaceAll('.', '')
         .replaceAll(',', '.');
@@ -30,6 +32,19 @@ class _TransactionFormState extends State<TransactionForm> {
     }
   }
 
+  _showDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(DateTime.now().year - 1),
+      lastDate: DateTime(DateTime.now().year + 10),
+    ).then((date) {
+      setState(() {
+        _selectedDate = date;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -38,13 +53,13 @@ class _TransactionFormState extends State<TransactionForm> {
         child: Column(
           children: <Widget>[
             TextField(
-              controller: titleController,
+              controller: _titleController,
               decoration: const InputDecoration(
                 labelText: 'Título',
               ),
             ),
             TextField(
-              controller: valueController,
+              controller: _valueController,
               keyboardType: TextInputType.number,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
@@ -55,9 +70,34 @@ class _TransactionFormState extends State<TransactionForm> {
               ),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  _selectedDate == null
+                      ? 'Nenhuma data selecionada.'
+                      : 'Data: ${DateFormat.yMd('pt_BR').format(_selectedDate!)}',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                IconButton(
+                  onPressed: _showDatePicker,
+                  icon: Icon(
+                    Icons.date_range_outlined,
+                    size: 34,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                TextButton.icon(
+                ElevatedButton.icon(
                   onPressed: _onSubmitForm,
                   icon: const Icon(Icons.add),
                   label: const Text('Transação'),
