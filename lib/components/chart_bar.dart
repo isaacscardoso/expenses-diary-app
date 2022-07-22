@@ -19,7 +19,9 @@ class ChartBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         FittedBox(
-          child: Text(CurrencyBrlFormatter.format(value: value, symbol: '')),
+          child: Text(
+            CurrencyBrlFormatter.format(value: value, symbol: ''),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),

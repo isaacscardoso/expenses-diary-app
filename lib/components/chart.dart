@@ -2,6 +2,7 @@ import 'package:expenses_diary/components/chart_bar.dart';
 import 'package:expenses_diary/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:expenses_diary/extensions/string_capitalize.dart';
 
 class Chart extends StatelessWidget {
   const Chart({Key? key, required this.recentTransactions}) : super(key: key);
@@ -25,10 +26,10 @@ class Chart extends StatelessWidget {
       }
 
       return {
-        'day': DateFormat.E().format(weekDay)[0],
+        'day': DateFormat.E('pt_BR').format(weekDay).capitalize(),
         'value': totalSum,
       };
-    });
+    }).reversed.toList();
   }
 
   double get _weekTotalValue {

@@ -4,6 +4,7 @@ import 'package:expenses_diary/models/transaction.dart';
 import 'package:expenses_diary/components/transaction_form.dart';
 import 'package:expenses_diary/components/transaction_list.dart';
 import 'package:expenses_diary/components/chart.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() => runApp(const MyApp());
 
@@ -13,6 +14,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: const [Locale('pt', 'BR')],
       title: 'Expenses Diary',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
