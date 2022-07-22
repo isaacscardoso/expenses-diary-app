@@ -42,20 +42,37 @@ class Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 6,
-      margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+      margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 6),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: groupedTransactions.map((gt) {
-            return Expanded(
-              child: ChartBar(
-                label: gt['day'],
-                value: gt['value'],
-                percentage: gt['value'] / _weekTotalValue,
+        child: Column(
+          children: [
+            const Text(
+              'SEMANA ATUAL',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                letterSpacing: 3,
               ),
-            );
-          }).toList(),
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: groupedTransactions.map((gt) {
+                return Expanded(
+                  child: ChartBar(
+                    label: gt['day'],
+                    value: gt['value'],
+                    percentage: _weekTotalValue != 0
+                        ? gt['value'] / _weekTotalValue
+                        : _weekTotalValue,
+                  ),
+                );
+              }).toList(),
+            ),
+          ],
         ),
       ),
     );

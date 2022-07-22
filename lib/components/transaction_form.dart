@@ -7,7 +7,7 @@ class TransactionForm extends StatefulWidget {
   const TransactionForm({Key? key, required this.onSubmitForm})
       : super(key: key);
 
-  final void Function(String, double) onSubmitForm;
+  final void Function(String, double, DateTime) onSubmitForm;
 
   @override
   State<TransactionForm> createState() => _TransactionFormState();
@@ -16,7 +16,7 @@ class TransactionForm extends StatefulWidget {
 class _TransactionFormState extends State<TransactionForm> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _valueController = TextEditingController();
-  DateTime? _selectedDate;
+  DateTime? _selectedDate = DateTime.now();
 
   void _onSubmitForm() {
     String title = _titleController.text;
@@ -27,8 +27,8 @@ class _TransactionFormState extends State<TransactionForm> {
 
     double value = double.tryParse(reformatValue) ?? 0.0;
 
-    if (title.isNotEmpty && value > 0) {
-      widget.onSubmitForm(title, value);
+    if (title.isNotEmpty && value > 0 && _selectedDate != null) {
+      widget.onSubmitForm(title, value, _selectedDate!);
     }
   }
 

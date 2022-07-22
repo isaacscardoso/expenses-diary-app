@@ -11,21 +11,16 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size.height;
     return SizedBox(
-      height: screenSize - (screenSize * (49.0 / 100)),
+      height: MediaQuery.of(context).size.height * 0.55,
       child: transactions.isEmpty
           ? Column(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 12, bottom: 20),
-                  child: Text(
-                    'Nenhuma Transação cadastrada!',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
+                const SizedBox(
+                  height: 34,
                 ),
                 SizedBox(
-                  height: screenSize - (screenSize * (66.7 / 100)),
+                  height: MediaQuery.of(context).size.height * 0.40,
                   child: Image.asset(
                     'assets/images/waiting.png',
                     fit: BoxFit.cover,
@@ -37,38 +32,41 @@ class TransactionList extends StatelessWidget {
               itemCount: transactions.length,
               itemBuilder: (BuildContext context, int index) {
                 final item = transactions[index];
-                return Card(
-                  child: ListTile(
-                    leading: const CircleAvatar(
-                      backgroundColor: Color.fromRGBO(244, 244, 244, 1),
-                      radius: 22,
-                      child: Icon(
-                        Icons.paid_outlined,
-                        color: Colors.black,
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 2),
+                  child: Card(
+                    child: ListTile(
+                      leading: const CircleAvatar(
+                        backgroundColor: Color.fromRGBO(244, 244, 244, 1),
+                        radius: 22,
+                        child: Icon(
+                          Icons.paid_outlined,
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          item.title,
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                        Text(
-                          CurrencyBrlFormatter.format(value: item.value),
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
-                            fontWeight: FontWeight.w600,
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            item.title,
+                            style: Theme.of(context).textTheme.headline6,
                           ),
+                          Text(
+                            CurrencyBrlFormatter.format(value: item.value),
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                      subtitle: Text(
+                        DateFormat("d 'de' MMMM 'de' y", 'pt_BR')
+                            .format(item.date),
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 13,
                         ),
-                      ],
-                    ),
-                    subtitle: Text(
-                      DateFormat("d 'de' MMMM 'de' y", 'pt_BR')
-                          .format(item.date),
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 13,
                       ),
                     ),
                   ),
