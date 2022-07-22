@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:expenses_diary/formatters/currency_brl_formatter.dart';
+import 'package:expenses_diary/formatters/currency_brl_mask.dart';
 
 class TransactionForm extends StatefulWidget {
   const TransactionForm({Key? key, required this.onSubmitForm})
@@ -48,7 +48,7 @@ class _TransactionFormState extends State<TransactionForm> {
               keyboardType: TextInputType.number,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
-                CurrencyBrlFormatter(),
+                CurrencyBrlMask(),
               ],
               decoration: const InputDecoration(
                 labelText: 'Valor',
